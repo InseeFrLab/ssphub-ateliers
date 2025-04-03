@@ -534,11 +534,12 @@ Dans notre cas, nous allons envoyer des données au serveur, ce dernier va les r
 
 ## Principe
 
-Prenons cette requête proposée sur le site de documentation de l'API de géolocalisation :
+Prenons cette requête proposée sur le site de [documentation](https://adresse.data.gouv.fr/outils/api-doc/adresse) de l'API de géolocalisation :
 
 ```{.bash}
 curl -X POST -F data=@path/to/file.csv -F columns=voie -F columns=ville -F citycode=ma_colonne_code_insee https://api-adresse.data.gouv.fr/search/csv/
 ```
+Ici l'objectif est d'obtenir des géolocalisations pour les adresses textuelles présentes dans un fichier .csv.
 
 Comme nous avons pu l'évoquer précédemment, `curl` est un outil en ligne de commande qui permet de faire des requêtes API. L'option `-X POST` indique, de manière assez transparente, qu'on désire faire une requête `POST`.
 
