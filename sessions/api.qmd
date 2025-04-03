@@ -771,7 +771,7 @@ L'idée est de trouver une recette pour apporter les éléments de configuration
 * Pour un code amené à fonctionner de manière interactive (par exemple par le biais d'un _notebook_), il est possible de créer une boite de dialogue qui injectera la valeur renseignée dans une variable. Cela se fait par le biais du package `getpass`.
 * Pour le code qui tourne en non interactif, par exemple par le biais de la ligne de commande, l'approche par variable d'environnement est la plus fiable, à condition de faire attention à ne pas mettre le fichier de mot de passe dans `Git` {{< fa brands git-alt >}}. Pour cela, le plus simple est d'utiliser [`dotenv`](https://pypi.org/project/python-dotenv/) si vous faites tourner votre code ou des [secrets](https://docs.github.com/fr/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) si votre code tourne par le biais de l'intégration continue[^gha].
 
-[^gha] : C'est par exemple l'approche adoptée pour construire ces supports. Cela se fait de [cette manière](XXXX).
+[^gha]: C'est par exemple l'approche adoptée pour construire ces supports. Cela se fait de [cette manière](XXXX).
 
 ::: {.important}
 Il ne faut jamais mettre de _token_ dans `Git`. Sinon, vous courrez le risque d'avoir votre identité usurpée : des robots scannent en continu  `Github` à la recherche de jetons pour ensuite lancer des dénis de service vous identifiant vous.
