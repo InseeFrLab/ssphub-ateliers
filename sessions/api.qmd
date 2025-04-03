@@ -185,7 +185,7 @@ localisation_insee
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 ojs_define(localisation_insee = localisation_insee)
 ```
 
