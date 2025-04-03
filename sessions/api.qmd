@@ -19,7 +19,7 @@ Cet atelier s'inspire fortement du chapitre consacré aux API dans le cours de [
 
 Vous êtes certainement habitué à récupérer vos données depuis des fichiers type CSV ou par _webscraping_[^def-webscraping]. Le webscraping est un pis-aller pour accéder à de la donnée.
 
-[^def-webscraping] : Technique consistant à singer le comportement d'un navigateur web et de récupérer de l'information en moissonnant le HTML auquel accède un site web
+[^def-webscraping]: Technique consistant à singer le comportement d'un navigateur web et de récupérer de l'information en moissonnant le HTML auquel accède un site web
 
 Heureusement, il existe d'autres manières d'accéder à des données : les API de données. En informatique, une API est un __ensemble de protocoles permettant à deux logiciels de communiquer entre eux__. Par exemple, on parle parfois d'API Pandas ce qui désigne le fait que `Pandas` est une interface entre votre code `Python` et un langage compilé plus efficace (`C`) qui fait les calculs que vous demandez au niveau de `Python`. L’objectif d’une API est ainsi de fournir un point d’accès à une fonctionnalité qui soit facile à utiliser et qui masque les détails de la mise en oeuvre.
 
