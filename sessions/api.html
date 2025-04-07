@@ -9,7 +9,7 @@
 <meta name="author" content="Lino Galiana">
 <meta name="description" content="Les API (Application Programming Interface) sont un mode d’accès aux données en expansion. Grâce aux API, l’automatisation de scripts est facilitée puisqu’il n’est plus nécessaire de stocker un fichier, et gérer ses versions, mais uniquement de requêter une base et laisser au producteur de données le soin de gérer les mises à jour de la base.">
 
-<title>Atelier pour découvrir la récupération de données via des API – Atelier du `SSPHub`</title>
+<title>Atelier pour découvrir la récupération de données via des API – Atelier du SSPHub</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,10 +22,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -40,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8647a4a42273f773479d27c00df3f9ed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cbb56798d03c8fd1c10f24bc05b4e88f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -72,10 +106,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 <style>
 div.callout-exercise.callout {
   border-left-color: pink;
@@ -102,7 +132,7 @@ div.callout-exercise.callout-style-default .callout-icon::before, div.callout-ex
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Atelier du `SSPHub`</span>
+    <span class="navbar-title">Atelier du SSPHub</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Recherche"></div>
@@ -118,6 +148,11 @@ div.callout-exercise.callout-style-default .callout-icon::before, div.callout-ex
   <li class="nav-item">
     <a class="nav-link active" href="../sessions/api.html" aria-current="page"> 
 <span class="menu-text">API</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/InseeFrLab/ssphub-ateliers.git"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -139,7 +174,28 @@ div.callout-exercise.callout-style-default .callout-icon::before, div.callout-ex
   <li><a href="#découverte-des-concepts-principaux-avec-lapi-ban" id="toc-découverte-des-concepts-principaux-avec-lapi-ban" class="nav-link" data-scroll-target="#découverte-des-concepts-principaux-avec-lapi-ban"><span class="header-section-number">2</span> Découverte des concepts principaux avec l’API BAN</a>
   <ul class="collapse">
   <li><a href="#comprendre-le-principe-avec-un-exemple-interactif" id="toc-comprendre-le-principe-avec-un-exemple-interactif" class="nav-link" data-scroll-target="#comprendre-le-principe-avec-un-exemple-interactif"><span class="header-section-number">2.1</span> Comprendre le principe avec un exemple interactif</a></li>
+  <li><a href="#comment-faire-avec-python" id="toc-comment-faire-avec-python" class="nav-link" data-scroll-target="#comment-faire-avec-python"><span class="header-section-number">2.2</span> Comment faire avec <code>Python</code> <i class="fa-brands fa-python" aria-label="python"></i> ?</a></li>
+  <li><a href="#comment-connaître-les-inputs-et-outputs-des-api" id="toc-comment-connaître-les-inputs-et-outputs-des-api" class="nav-link" data-scroll-target="#comment-connaître-les-inputs-et-outputs-des-api"><span class="header-section-number">2.3</span> Comment connaître les <em>inputs</em> et <em>outputs</em> des API ?</a></li>
+  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application"><span class="header-section-number">2.4</span> Application</a></li>
   </ul></li>
+  <li><a href="#plus-dexemples-de-requêtes-get" id="toc-plus-dexemples-de-requêtes-get" class="nav-link" data-scroll-target="#plus-dexemples-de-requêtes-get"><span class="header-section-number">3</span> Plus d’exemples de requêtes <code>GET</code></a>
+  <ul class="collapse">
+  <li><a href="#source-principale" id="toc-source-principale" class="nav-link" data-scroll-target="#source-principale"><span class="header-section-number">3.1</span> Source principale</a></li>
+  <li><a href="#récupérer-des-données-à-façon-grâce-aux-api" id="toc-récupérer-des-données-à-façon-grâce-aux-api" class="nav-link" data-scroll-target="#récupérer-des-données-à-façon-grâce-aux-api"><span class="header-section-number">3.2</span> Récupérer des données à façon grâce aux API</a></li>
+  </ul></li>
+  <li><a href="#découverte-des-requêtes-post" id="toc-découverte-des-requêtes-post" class="nav-link" data-scroll-target="#découverte-des-requêtes-post"><span class="header-section-number">4</span> Découverte des requêtes <code>POST</code></a>
+  <ul class="collapse">
+  <li><a href="#logique" id="toc-logique" class="nav-link" data-scroll-target="#logique"><span class="header-section-number">4.1</span> Logique</a></li>
+  <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe"><span class="header-section-number">4.2</span> Principe</a></li>
+  <li><a href="#application-avec-python" id="toc-application-avec-python" class="nav-link" data-scroll-target="#application-avec-python"><span class="header-section-number">4.3</span> Application avec <code>Python</code></a></li>
+  </ul></li>
+  <li><a href="#gestion-des-secrets-et-des-exceptions" id="toc-gestion-des-secrets-et-des-exceptions" class="nav-link" data-scroll-target="#gestion-des-secrets-et-des-exceptions"><span class="header-section-number">5</span> Gestion des secrets et des exceptions</a>
+  <ul class="collapse">
+  <li><a href="#bonnes-pratiques-pour-utiliser-un-token-dans-un-code-sans-le-révéler" id="toc-bonnes-pratiques-pour-utiliser-un-token-dans-un-code-sans-le-révéler" class="nav-link" data-scroll-target="#bonnes-pratiques-pour-utiliser-un-token-dans-un-code-sans-le-révéler"><span class="header-section-number">5.1</span> Bonnes pratiques pour utiliser un token dans un code sans le révéler 👮</a></li>
+  <li><a href="#le-portail-des-api-de-linsee" id="toc-le-portail-des-api-de-linsee" class="nav-link" data-scroll-target="#le-portail-des-api-de-linsee"><span class="header-section-number">5.2</span> Le portail des API de l’Insee</a></li>
+  <li><a href="#récupération-des-données-via-python" id="toc-récupération-des-données-via-python" class="nav-link" data-scroll-target="#récupération-des-données-via-python"><span class="header-section-number">5.3</span> Récupération des données via <code>Python</code> <i class="fa-brands fa-python" aria-label="python"></i></a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -235,7 +291,917 @@ Illustration avec l’API BAN
 <section id="comprendre-le-principe-avec-un-exemple-interactif" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="comprendre-le-principe-avec-un-exemple-interactif"><span class="header-section-number">2.1</span> Comprendre le principe avec un exemple interactif</h2>
 <p>Le premier mode (accès par un navigateur) est principalement utilisé lorsqu’une interface web permet à un utilisateur de faire des choix afin de lui renvoyer des résultats correspondant à ceux-ci. Prenons à nouveau l’exemple de l’API de géolocalisation que nous utiliserons dans ce chapitre. Imaginons une interface web permettant à l’utilisateur deux choix : un code postal et une adresse. Cela sera injecté dans la requête et le serveur répondra avec la géolocalisation adaptée.</p>
+<div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="76" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 75;"><span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>viewof codePostal <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">value</span><span class="op">:</span> <span class="st">"92120"</span><span class="op">,</span> <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"92120"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="fu">md</span><span class="vs">`**Code Postal**`</span>})</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="form-codepostal" class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:46%;">
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="90" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>viewof adresse <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">value</span><span class="op">:</span> defaultAdresse<span class="op">,</span> <span class="dt">placeholder</span><span class="op">:</span> defaultAdresse<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="fu">md</span><span class="vs">`**Adresse**`</span>})</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="form-adresse-ojs" class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="99" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 98;"><span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">mj</span><span class="vs">`$$</span><span class="er">\u</span><span class="vs">nderbrace{</span><span class="sc">\t</span><span class="vs">ext{</span><span class="sc">${</span>apiroot<span class="sc">}</span><span class="vs">}}_{</span><span class="sc">\t</span><span class="vs">ext{API root}}/</span><span class="er">\u</span><span class="vs">nderbrace{</span><span class="sc">\t</span><span class="vs">ext{search}}_{</span><span class="sc">\t</span><span class="vs">ext{API endpoint}}/?</span><span class="er">\u</span><span class="vs">nderbrace{</span><span class="sc">\t</span><span class="vs">ext{</span><span class="sc">${</span>param1<span class="sc">}</span><span class="vs">}}_{</span><span class="sc">\t</span><span class="vs">ext{main parameter}}</span><span class="sc">\&amp;</span><span class="er">\u</span><span class="vs">nderbrace{</span><span class="sc">\t</span><span class="vs">ext{</span><span class="sc">${</span>param2<span class="sc">}</span><span class="vs">}}_{</span><span class="sc">\t</span><span class="vs">ext{additional parameter}}$$`</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="sc">}</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="108" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 107;"><span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>map <span class="op">=</span> {</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height:300px;"&gt;`</span><span class="op">;</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>  <span class="kw">yield</span> container<span class="op">;</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> map <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(container)<span class="op">.</span><span class="fu">setView</span>([latitude<span class="op">,</span> longitude]<span class="op">,</span> <span class="dv">13</span>)<span class="op">;</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>  L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"</span><span class="op">,</span> {</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attribution</span><span class="op">:</span> <span class="st">"&amp;copy; &lt;a href=https://www.openstreetmap.org/copyright&gt;OpenStreetMap&lt;/a&gt; contributors"</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> marker <span class="op">=</span> L<span class="op">.</span><span class="fu">marker</span>([latitude<span class="op">,</span> longitude])<span class="op">.</span><span class="fu">addTo</span>(map)<span class="op">;</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>  marker<span class="op">.</span><span class="fu">bindPopup</span>(<span class="st">"&lt;b&gt;Trouvé !&lt;/b&gt;"</span>)<span class="op">.</span><span class="fu">openPopup</span>()<span class="op">;</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> map</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>🔎 Allons voir ce que cela donne dans l’onglet <code>Réseau</code> des outils de développement de notre navigateur (dans <code>firefox</code>, raccourci <i class="fa-brands fa-firefox" aria-label="firefox"></i> <kbd>CTRL</kbd>+<kbd>MAJ</kbd>+<kbd>K</kbd>).</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="126" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 125;"><span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="vs"> Pour preuve que cette requête est bien fonctionnelle, on peut l'ouvrir dans un navigateur : &lt;a href="</span><span class="sc">${</span>url<span class="sc">}</span><span class="vs">" target="_blank" title="Test de url dans un navigateur"&gt;</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="vs"> &lt;i class="fa-solid fa-magnifying-glass"&gt;&lt;/i&gt;&lt;/i&gt;</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Ce qui nous donne un output au format <em>JSON</em>, le format de sortie d’API le plus commun.</p>
+<p>Si on veut un beau rendu, comme la carte ci-dessus, il faudra que le navigateur retravaille cet <em>output</em>, ce qui se fait normalement avec <code>Javascript</code>, le langage de programmation embarqué par les navigateurs.</p>
 </section>
+<section id="comment-faire-avec-python" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="comment-faire-avec-python"><span class="header-section-number">2.2</span> Comment faire avec <code>Python</code> <i class="fa-brands fa-python" aria-label="python"></i> ?</h2>
+<p>Le principe est le même sauf que nous perdons l’aspect interactif. Il s’agira donc, avec <code>Python</code>, de construire l’URL voulue et d’aller chercher via une requête HTTP le résultat.</p>
+<p><code>Python</code> communique avec internet : via le <strong><em>package</em> <code>requests</code></strong>. Ce <em>package</em> suit le protocole HTTP où on retrouve principalement deux types de requêtes : <code>GET</code> et <code>POST</code> :</p>
+<ul>
+<li>La requête <code>GET</code> est utilisée pour récupérer des données depuis un serveur web. C’est la méthode la plus simple et courante pour accéder aux ressources d’une page web. Nous allons commencer par décrire celle-ci.</li>
+<li>La requête <code>POST</code> est utilisée pour envoyer des données au serveur, souvent dans le but de créer ou de mettre à jour une ressource. Sur les pages web, elle sert souvent à la soumission de formulaires qui nécessitent de mettre à jour des informations sur une base (mot de passe, informations clients, etc.). Nous verrons son utilité plus tard, lorsque nous commencerons à rentrer dans les requêtes authentifiées où il faudra soumettre des informations supplémentaires à notre requête.</li>
+</ul>
+<p>Faisons un premier test avec <code>Python</code> en faisant comme si nous connaissions bien cette API.</p>
+<div id="ban-first-example" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>adresse <span class="op">=</span> <span class="st">"88 avenue verdier"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>url_ban_example <span class="op">=</span> <span class="ss">f"https://api-adresse.data.gouv.fr/search/?q=</span><span class="sc">{</span>adresse<span class="sc">.</span>replace(<span class="st">" "</span>, <span class="st">"+"</span>)<span class="sc">}</span><span class="ss">&amp;postcode=92120"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>requests.get(url_ban_example)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Qu’est-ce qu’on obtient ? Un <strong>code HTTP</strong>. Le code 200 correspond aux requêtes réussies, c’est-à-dire pour lesquelles le serveur est en mesure de répondre. Si ce n’est pas le cas, pour une raison <em>x</em> ou <em>y</em>, vous aurez un code différent.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Les codes HTTP
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Les codes de statut HTTP sont des réponses standard envoyées par les serveurs web pour indiquer le résultat d’une requête effectuée par un client (comme un navigateur ou un script Python). Ils sont classés en différentes catégories selon le premier chiffre du code :</p>
+<ul>
+<li>1xx : Informations</li>
+<li>2xx : Succès</li>
+<li>3xx : Redirections</li>
+<li>4xx : Erreurs côté client</li>
+<li>5xx : Erreurs côté serveur</li>
+</ul>
+<p>Ceux à retenir sont : 200 (succès), 400 (requête mal structurée), 401 (authentification non réussie), 403 (accès interdit), 404 (ressource demandée n’existe pas), 503 (le serveur n’est pas en capacité de répondre)</p>
+</div>
+</div>
+</div>
+<p>Pour récupérer le contenu renvoyé par <code>requests</code>, il existe plusieurs méthodes. Quand on un JSON bien formatté, le plus simple est d’utiliser la méthode <code>json</code> qui transforme cela en dictionnaire :</p>
+<div id="ban-example-json" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(url_ban_example)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>localisation_insee <span class="op">=</span> req.json()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>localisation_insee</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En l’occurrence, on voit que les données sont dans un JSON imbriqué. Il faut donc développer un peu de code pour récupérer les informations voulues dans celui-ci:</p>
+<div id="776c556c" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>localisation_insee.get(<span class="st">'features'</span>)[<span class="dv">0</span>].get(<span class="st">'properties'</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>C’est là l’inconvénient principal de l’usage des API : le travail <em>ex post</em> sur les données renvoyées est parfois important. Le code nécessaire est propre à chaque API puisque l’architecture du JSON dépend de chaque API.</p>
+</section>
+<section id="comment-connaître-les-inputs-et-outputs-des-api" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="comment-connaître-les-inputs-et-outputs-des-api"><span class="header-section-number">2.3</span> Comment connaître les <em>inputs</em> et <em>outputs</em> des API ?</h2>
+<p>Ici on a pris l’API BAN comme un outil magique dont on connaissait les principaux <em>inputs</em> (le <em>endpoint</em>, les paramètres et leur formattage…). Mais comment faire, en pratique, pour en arriver là ? Tout simplement en lisant la documentation lorsqu’elle existe et en testant celle-ci via des exemples.</p>
+<p>Les bonnes API proposent un outil interactif qui s’appelle le <a href="https://swagger.io/docs/"><code>swagger</code></a>. C’est un site web interactif où sont décrites les principales fonctionnalités de l’API et où l’utilisateur peut tester des exemples interactivement. Ces documentations sont souvent créées automatiquement lors de la construction d’une API et mises à disposition par le biais d’un point d’entrée <code>/docs</code>. Elles permettent souvent d’éditer certains paramètres dans le navigateur, voir le JSON obtenu (ou l’erreur générée) et récupérer la requête formattée qui permet d’obtenir celui-ci. Ces consoles interactives dans le navigateur permettent de répliquer le tâtonnement qu’on peut faire par ailleurs dans des outils spécialisés comme <a href="https://www.postman.com/"><code>postman</code></a>.</p>
+<p>Concernant l’API BAN, la documentation se trouve sur <a href="https://adresse.data.gouv.fr/api-doc/adresse" class="uri">https://adresse.data.gouv.fr/api-doc/adresse</a>. Elle n’est pas interactive, malheureusement. Mais elle présente de nombreux exemples qui peuvent être testés directement depuis le navigateur. Il suffit d’utiliser les URL proposées comme exemple. Ceux-ci sont présentés par le biais de <code>curl</code> (un équivalent de <code>requests</code> en ligne de commande Linux <i class="fa-brands fa-linux" aria-label="linux"></i>):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>curl <span class="st">"https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&amp;limit=15"</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Il suffit de copier l’URL en question (<code>https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&amp;limit=15</code>), d’ouvrir un nouvel onglet et vérifier que cela produit bien un résultat. Puis de changer un paramètre et vérifier à nouveau, jusqu’à trouver la structure qui convient. Et après, on peut passer à <code>Python</code> comme le propose l’exercice suivant.</p>
+</section>
+<section id="application" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="application"><span class="header-section-number">2.4</span> Application</h2>
+<p>Pour la prochaine application, nous allons utiliser l’adresse suivante :</p>
+<div id="adresse-input-exo1" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>adresse <span class="op">=</span> <span class="st">"88 Avenue Verdier"</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 1 : Structurer un appel à une API depuis <code>Python</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Tester sans aucun autre paramètre, le retour de notre API. Transformer en <code>DataFrame</code> le résultat.</li>
+<li>Se restreindre à Montrouge avec le paramètre <em>ad hoc</em> et la recherche du code insee ou code postal adéquat sur <em>Google</em>.</li>
+<li>(Optionnel) : Représenter l’adresse trouvée sur une carte.</li>
+</ol>
+</div>
+</div>
+<div id="exercise1-question1" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Correction question 1</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ban_root <span class="op">=</span> <span class="st">"https://api-adresse.data.gouv.fr"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ban_search_endpoint <span class="op">=</span> <span class="st">"search"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>api_ban_q1 <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>ban_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ban_search_endpoint<span class="sc">}</span><span class="ss">?q=</span><span class="sc">{</span>adresse<span class="sc">.</span>replace(<span class="st">" "</span>, <span class="st">"+"</span>)<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>output_api_ban <span class="op">=</span> requests.get(api_ban_q1).json().get(<span class="st">'features'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>df_avenue_verdier <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    [out[<span class="st">'properties'</span>] <span class="cf">for</span> out <span class="kw">in</span> output_api_ban]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Les deux premières lignes du <em>dataframe</em> obtenu à la question 1 devraient être</p>
+<p>A la question 2, la requête ne renvoie cette fois qu’une seule observation, qu’on pourrait retravailler avec <code>GeoPandas</code> pour vérifier qu’on a bien placé ce point sur une carte</p>
+<div id="exercise1-question2" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Correction question 2</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>api_ban_q2 <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>ban_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ban_search_endpoint<span class="sc">}</span><span class="ss">?q=</span><span class="sc">{</span>adresse<span class="sc">.</span>replace(<span class="st">" "</span>, <span class="st">"+"</span>)<span class="sc">}</span><span class="ss">&amp;postcode=92120"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>output_q2 <span class="op">=</span> requests.get(api_ban_q2).json()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>output_q2 <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    [output_q2.get(<span class="st">"features"</span>)[<span class="dv">0</span>][<span class="st">'properties'</span>]]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>output_q2 <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    output_q2,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>gpd.points_from_xy(output_q2.x, output_q2.y), crs<span class="op">=</span><span class="st">"EPSG:2154"</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>).to_crs(<span class="dv">4326</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>output_q2</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Enfin, à la question 3, on obtient cette carte (plus ou moins la même que précédemment) :</p>
+<div id="exercise1-question3-folium" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Correction question 3</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraire la longitude et la latitude</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> output_q2.geometry.x.iloc[<span class="dv">0</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>latitude <span class="op">=</span> output_q2.geometry.y.iloc[<span class="dv">0</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Créer une carte Folium centrée sur le point</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location<span class="op">=</span>[latitude, longitude], zoom_start<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Définir le contenu de la popup</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>popup_content <span class="op">=</span> <span class="ss">f"""</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="ss">&lt;b&gt;</span><span class="sc">{</span>output_q2[<span class="st">'name'</span>]<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&lt;/b&gt; has been found!</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajouter le marqueur</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>folium.Marker(</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[latitude, longitude],</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    popup<span class="op">=</span>folium.Popup(popup_content, max_width<span class="op">=</span><span class="dv">300</span>),</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">'blue'</span>, icon<span class="op">=</span><span class="st">'info-sign'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>).add_to(m)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte dans le notebook (si utilisé dans un Jupyter Notebook)</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quelques exemples d’API à connaître
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Les principaux fournisseurs de données officielles proposent des API. C’est le cas notamment de l’<a href="https://api.insee.fr/catalogue/">Insee</a>, d’<a href="https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started">Eurostat</a>, de la <a href="https://data.ecb.europa.eu/help/data-examples">BCE</a>, de la <a href="https://fred.stlouisfed.org/docs/api/fred/">FED</a>, de la <a href="https://datahelpdesk.worldbank.org/knowledgebase/topics/125589">Banque Mondiale</a>…</p>
+<p>Néanmoins, la production de données par les institutions publiques est loin d’être restreinte aux producteurs de statistiques publiques. Le portail <a href="https://api.gouv.fr/">API gouv</a> est le point de référencement principal pour les API produites par l’administration centrale française ou des administrations territoriales. De nombreuses villes publient également des données sur leurs infrastructures par le biais d’API, par exemple la <a href="https://opendata.paris.fr/api/explore/v2.1/console">ville de Paris</a>.</p>
+<p>Les producteurs de données privées proposent également des API. Par exemple, la <a href="https://data.sncf.com/api">SNCF</a> ou la <a href="https://data.ratp.fr/pages/temps-reel/">RATP</a> proposent des API pour certains usages. Les grands acteurs du numérique, par exemple <a href="https://developer.spotify.com/web-api/"><code>Spotify</code> <i class="fa-brands fa-spotify" aria-label="spotify"></i></a> proposent généralement des API pour intégrer certains de leurs services à des applications externes.</p>
+<p>Cependant, il faut être conscient des limites de certaines API. En premier lieu, les données partagées ne sont pas forcément très riches pour ne pas compromettre la confidentialité des informations partagées par les utilisateurs du service ou la part de marché du producteur qui n’a pas intérêt à vous partager ses données à forte valeur. Il faut également être conscient du fait qu’une API peut disparaître ou changer de structure du jour au lendemain. Les codes de restructuration de données étant assez adhérents à une structure d’API, on peut se retrouver à devoir changer un volume conséquent de code si une API critique change substantiellement.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="plus-dexemples-de-requêtes-get" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Plus d’exemples de requêtes <code>GET</code></h1>
+<section id="source-principale" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="source-principale"><span class="header-section-number">3.1</span> Source principale</h2>
+<p>Nous allons utiliser comme base principale pour ce tutoriel la <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1161">base permanente des équipements</a>, un répertoire d’équipements publics accueillant du public.</p>
+<p>On va commencer par récupérer les données qui nous intéressent. On ne récupère pas toutes les variables du fichier mais seulement celles qu’ils nous intéressent : quelques variables sur l’équipement, son adresse et sa commune d’appartenance.</p>
+<p>Nous allons nous restreindre aux établissements d’enseignement primaire, secondaire et supérieur du département de la Haute-Garonne (le département 31). Ces établissements sont identifiés par un code particulier, entre <code>C1</code> et <code>C5</code>.</p>
+<div id="read-bpe-parquet" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> duckdb</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM read_parquet('https://minio.lab.sspcloud.fr/lgaliana/diffusion/BPE23.parquet')</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT NOMRS, NUMVOIE, INDREP, TYPVOIE, LIBVOIE,</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">       CADR, CODPOS, DEPCOM, DEP, TYPEQU,</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">       concat_ws(' ', NUMVOIE, INDREP, TYPVOIE, LIBVOIE) AS adresse, SIRET</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE DEP = '31'</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">      AND starts_with(TYPEQU, 'C')</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">      AND NOT (starts_with(TYPEQU, 'C6') OR starts_with(TYPEQU, 'C7'))</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>bpe <span class="op">=</span> duckdb.sql(query)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>bpe <span class="op">=</span> bpe.to_df()</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>bpe.head(<span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="récupérer-des-données-à-façon-grâce-aux-api" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="récupérer-des-données-à-façon-grâce-aux-api"><span class="header-section-number">3.2</span> Récupérer des données à façon grâce aux API</h2>
+<p>Nous avons vu précédemment le principe général d’une requête d’API. Pour illustrer, de manière plus massive, la récupération de données par le biais d’une API, essayons de récupérer des données complémentaires à notre source principale. Nous allons utiliser l’annuaire de l’éducation qui fournit de nombreuses informations sur les établissements scolaires. Nous utiliserons le SIRET pour croiser les deux sources de données.</p>
+<p>L’exercice suivant viendra illustrer l’intérêt d’utiliser une API pour avoir des données à façon et la simplicité à récupérer celles-ci via <code>Python</code>. Néanmoins, cet exercice illustrera également une des limites de certaines API, à savoir la volumétrie des données à récupérer.</p>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Visiter le <em>swagger</em> de l’API de l’Annuaire de l’Education nationale sur <a href="https://api.gouv.fr/documentation/api-annuaire-education">api.gouv.fr/documentation</a>, et plus particulièrement sa <a href="https://data.education.gouv.fr/explore/dataset/fr-en-annuaire-education/api/?disjunctive.type_etablissement&amp;disjunctive.libelle_academie&amp;disjunctive.libelle_region&amp;disjunctive.ministere_tutelle&amp;disjunctive.appartenance_education_prioritaire&amp;disjunctive.nom_commune&amp;disjunctive.code_postal&amp;disjunctive.code_departement">“documentation externe”</a> qui permet de générer les urls souhaitées en prototypant interactivement les requêtes. Tester une première récupération de données en utilisant le <em>endpoint</em> <code>records</code> sans aucun paramètre.</li>
+<li>Puisqu’on n’a conservé que les données de la Haute Garonne dans notre base principale, on désire ne récupérer que les établissements de ce département par le biais de notre API. Faire une requête avec le paramètre <em>ad hoc</em>, sans en ajouter d’autres.</li>
+<li>Augmenter la limite du nombre de paramètres, voyez-vous le problème ?</li>
+<li>On va tenter de récupérer ces données par le biais de l’API tabular de <code>data.gouv</code>. Sa documentation est <a href="https://tabular-api.data.gouv.fr/api/doc">ici</a> et l’identifiant de la ressource est <code>b22f04bf-64a8-495d-b8bb-d84dbc4c7983</code> (<a href="https://www.data.gouv.fr/fr/datasets/annuaire-de-leducation/">source</a>). Avec l’aide de la documentation, essayer de récupérer des données par le biais de cette API en utilisant le paramètre <code>Code_departement__exact=031</code> pour ne garder que le département d’intérêt.</li>
+<li>Voyez-vous le problème et comment nous pourrions automatiser la récupération de données ?</li>
+</ol>
+</div>
+</div>
+<div id="exercise2-api-education-q1" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Réponse question 1</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url_annuaire_education <span class="op">=</span> <span class="st">"https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>school_q1_exo2 <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  requests</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  .get(url_annuaire_education)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  .json()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  .get(<span class="st">"results"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>school_q1_exo2.head(<span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Néanmoins, on a deux problèmes : le nombre de lignes et le département d’intérêt. Essayons déjà avec la question 2 de changer ce dernier.</p>
+<div id="exercise2-api-education-q2" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Réponse question 2</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>url_31_limite10 <span class="op">=</span> <span class="st">"https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_departement</span><span class="sc">%20li</span><span class="st">ke</span><span class="sc">%20%</span><span class="st">22031%22"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>school_q2_exo2 <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  requests</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  .get(url_31_limite10)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  .json()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  .get(<span class="st">"results"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>school_q2_exo2.head()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>C’est mieux, mais nous avons toujours seulement 10 observations. Si on essaie d’ajuster le nombre de lignes (question 3), on obtient le retour suivant de l’API :</p>
+<div id="0eb95074" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Question 3</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>url_31_limite200 <span class="op">=</span> <span class="st">"https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-annuaire-education/records?where=code_departement</span><span class="sc">%20li</span><span class="st">ke</span><span class="sc">%20%</span><span class="st">22031%22&amp;limit=200"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>requests.get(url_31_limite200).json()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Essayons avec des données plus exhaustives : le fichier brut sur <code>data.gouv</code>. Comme on peut le voir dans les métadonnées, on sait qu’on a plus de 1000 écoles dont on peut récupérer des données, mais qu’on en a ici extrait seulement 20. Le champ <code>next</code> nous donne directement l’URL à utiliser pour récupérer les 20 pages suivantes : c’est grâce à lui qu’on a une chance de récupérer toutes nos données d’intérêt.</p>
+<div id="exercise2-api-datagouv" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Réponse question 4</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>url_api_datagouv <span class="op">=</span> <span class="st">"https://tabular-api.data.gouv.fr/api/resources/b22f04bf-64a8-495d-b8bb-d84dbc4c7983/data/?Code_departement__exact=031"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>call_api_datagouv <span class="op">=</span> requests.get(url_api_datagouv).json()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Le problème de la récupération de données via l’API vient du fait que nous ne récupérons qu’un petit échantillon à chaque requête. Pour y remédier, nous allons devoir faire plusieurs appels successifs. Dans le JSON obtenu ci-dessus, la partie intéressante pour automatiser la récupération de nos données est la clé <code>links</code>. En bouclant sur celui-ci pour parcourir la liste des URL accessibles, on peut récupérer des données.</p>
+<div id="exercise2-api-tabular" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Réponse question 5</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the initial API URL</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>url_api_datagouv <span class="op">=</span> <span class="st">"https://tabular-api.data.gouv.fr/api/resources/b22f04bf-64a8-495d-b8bb-d84dbc4c7983/data/?Code_departement__exact=031&amp;page_size=50"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty list to store all data entries</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>all_data <span class="op">=</span> []</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the URL for pagination</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>current_url <span class="op">=</span> url_api_datagouv</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop until there is no next page</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> current_url:</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make a GET request to the current URL</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> requests.get(current_url)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        response.raise_for_status()  <span class="co"># Raise an exception for HTTP errors</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Parse the JSON response</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        json_response <span class="op">=</span> response.json()</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract data and append to the all_data list</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        page_data <span class="op">=</span> json_response.get(<span class="st">'data'</span>, [])</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>        all_data.extend(page_data)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Fetched </span><span class="sc">{</span><span class="bu">len</span>(page_data)<span class="sc">}</span><span class="ss"> records from </span><span class="sc">{</span>current_url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the next page URL</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>        links <span class="op">=</span> json_response.get(<span class="st">'links'</span>, {})</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        current_url <span class="op">=</span> links.get(<span class="st">'next'</span>)  <span class="co"># This will be None if there's no next page</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> requests.exceptions.RequestException <span class="im">as</span> e:</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="e0369e78" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>schools_dep31 <span class="op">=</span> pd.DataFrame(all_data)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>schools_dep31.head()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On peut fusionner ces nouvelles données avec nos données précédentes pour enrichir celles-ci. Pour faire une production fiable, il faudrait faire attention aux écoles qui ne s’apparient pas, mais ce n’est pas grave pour cette série d’exercices.</p>
+<div id="exercise2-bpe-enriched" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>bpe_enriched <span class="op">=</span> bpe.merge(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  schools_dep31,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  left_on <span class="op">=</span> <span class="st">"SIRET"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  right_on <span class="op">=</span> <span class="st">"SIREN_SIRET"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>bpe_enriched.head(<span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cela nous donne des données enrichies de nouvelles caractéristiques sur les établissements. Il y a des coordonnées géographiques dans celles-ci, mais nous allons faire comme s’il n’y en avait pas pour réutiliser notre API de géolocalisation et ainsi avoir un alibi pour utiliser les requêtes <code>POST</code>.</p>
+</section>
+</section>
+<section id="découverte-des-requêtes-post" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Découverte des requêtes <code>POST</code></h1>
+<section id="logique" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="logique"><span class="header-section-number">4.1</span> Logique</h2>
+<p>Nous avons jusqu’à présent évoqué les requêtes <code>GET</code>. Nous allons maintenant présenter les requêtes <code>POST</code> qui permettent d’interagir de manière plus complexe avec des serveurs de l’API.</p>
+<p>Pour découvrir celles-ci, nous allons reprendre l’API de géolocalisation précédente mais utiliser un autre point d’entrée qui nécessite une requête <code>POST</code>.</p>
+<p>Ces dernières sont généralement utilisées quand il est nécessaire d’envoyer des données particulières pour déclencher une action. Par exemple, dans le monde du web, si vous avez une authentification à mettre en oeuvre, une requête <code>POST</code> permettra d’envoyer un <em>token</em> au serveur qui répondra en acceptant votre authentification.</p>
+<p>Dans notre cas, nous allons envoyer des données au serveur, ce dernier va les recevoir, les utiliser pour la géolocalisation puis nous envoyer une réponse. Pour continuer sur la métaphore culinaire, c’est comme si vous donniez vous-mêmes à la cuisine un <em>tupperware</em> pour récupérer votre plat à emporter.</p>
+</section>
+<section id="principe" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="principe"><span class="header-section-number">4.2</span> Principe</h2>
+<p>Prenons cette requête proposée sur le site de <a href="https://adresse.data.gouv.fr/outils/api-doc/adresse">documentation</a> de l’API de géolocalisation :</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST <span class="at">-F</span> data=@path/to/file.csv <span class="at">-F</span> columns=voie <span class="at">-F</span> columns=ville <span class="at">-F</span> citycode=ma_colonne_code_insee https://api-adresse.data.gouv.fr/search/csv/</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ici l’objectif est d’obtenir des géolocalisations pour les adresses textuelles présentes dans un fichier .csv.</p>
+<p>Comme nous avons pu l’évoquer précédemment, <code>curl</code> est un outil en ligne de commande qui permet de faire des requêtes API. L’option <code>-X POST</code> indique, de manière assez transparente, qu’on désire faire une requête <code>POST</code>.</p>
+<p>Les autres arguments sont passés par le biais des options <code>-F</code>. En l’occurrence, on envoie un fichier et on ajoute des paramètres pour aider le serveur à aller chercher la donnée dedans. L’<code>@</code> indique que <code>file.csv</code> doit être lu sur le disque et envoyé dans le corps de la requête comme une donnée de formulaire.</p>
+</section>
+<section id="application-avec-python" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="application-avec-python"><span class="header-section-number">4.3</span> Application avec <code>Python</code></h2>
+<p>Nous avions <code>requests.get</code>, il est donc logique que nous ayons <code>requests.post</code>. Cette fois, il faudra passer des paramètres à notre requête sous la forme d’un dictionnaire dont les clés sont le nom de l’argument et les valeurs sont des objets <code>Python</code>.</p>
+<p>Le principal défi, illustré dans le prochain exercice, est le passage de l’argument <code>data</code> : il faudra renvoyer le fichier comme un objet <code>Python</code> par le biais de la fonction <code>open</code>.</p>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 3 : une requête <code>POST</code> pour géolocaliser en masse nos données
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Enregistrer au format CSV les colonnes <code>adresse</code>, <code>DEPCOM</code> et <code>Nom_commune</code> de la base d’équipements fusionnée avec notre répertoire précédent (objet <code>bpe_enriched</code>). Il peut être utile, avant l’écriture au format CSV, de remplacer les virgules dans la colonne <code>adresse</code> par des espaces.</li>
+<li>Créer l’objet <code>response</code> avec <code>requests.post</code> et les bons arguments pour géocoder votre CSV.</li>
+<li>Transformer votre output en objet <code>Pandas</code> avec la commande suivante :</li>
+</ol>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>bpe_loc <span class="op">=</span> pd.read_csv(io.StringIO(response.text))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="exercise3-q1" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Réponse question 1</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pathlib</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> pathlib.Path(<span class="st">"data/output"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>output_path.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> output_path <span class="op">/</span> <span class="st">"bpe_before_geoloc.csv"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>bpe_enriched[<span class="st">"adresse"</span>] <span class="op">=</span> bpe_enriched[<span class="st">"adresse"</span>].<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">""</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>bpe_enriched.loc[:, [<span class="st">"adresse"</span>, <span class="st">"DEPCOM"</span>, <span class="st">"Nom_commune"</span>]].to_csv(csv_file)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="de0cc209" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Réponse question 2 et 3</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"columns"</span>: [<span class="st">"adresse"</span>, <span class="st">"Nom_commune"</span>],</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"citycode"</span>: <span class="st">"DEPCOM"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"result_columns"</span>: [<span class="st">"result_score"</span>, <span class="st">"latitude"</span>, <span class="st">"longitude"</span>],</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://api-adresse.data.gouv.fr/search/csv/"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>params,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        files<span class="op">=</span>{<span class="st">"data"</span>: <span class="bu">open</span>(csv_file, <span class="st">"rb"</span>)},</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>bpe_loc <span class="op">=</span> pd.read_csv(io.StringIO(response.text))</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>bpe_loc <span class="op">=</span> bpe_loc.rename({<span class="st">"Unnamed: 0"</span>: <span class="st">"index"</span>}, axis <span class="op">=</span> <span class="st">"columns"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Les géolocalisations obtenues prennent cette forme</p>
+<p>On peut ensuite faire la jointure à nos données initiales :</p>
+<div id="exercise3-q2" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Jointure aux données initiales</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bpe_loc <span class="op">=</span> bpe_loc.loc[:, [<span class="st">"index"</span>, <span class="st">"result_score"</span>, <span class="st">"latitude"</span>, <span class="st">"longitude"</span>]]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>bpe_enriched_geocoded <span class="op">=</span> (</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  bpe_enriched</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  .reset_index()</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  .merge(bpe_loc, on <span class="op">=</span> <span class="st">"index"</span>, suffixes <span class="op">=</span> [<span class="st">"_annuaire"</span>, <span class="st">"_ban"</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  .drop(<span class="st">"index"</span>, axis <span class="op">=</span> <span class="st">"columns"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>bpe_enriched_geocoded.head(<span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="exercise3-q3" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Jointure aux données initiales</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>bpe_enriched_geocoded <span class="op">=</span> (</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    bpe_enriched_geocoded</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    .dropna(subset<span class="op">=</span>[<span class="st">"longitude_ban"</span>,<span class="st">"latitude_ban"</span>])</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>bpe_enriched_geocoded <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    bpe_enriched_geocoded,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>gpd.points_from_xy(</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      bpe_enriched_geocoded[<span class="st">'longitude_ban'</span>],</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      bpe_enriched_geocoded[<span class="st">'latitude_ban'</span>]</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    crs<span class="op">=</span><span class="st">"EPSG:4326"</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Pour profiter de nos données enrichies, on peut faire une carte. Pour ajouter un peu de contexte à celle-ci, on peut mettre un fond de carte des communes en arrière plan. Celui-ci peut être récupéré avec <code>cartiflette</code> :</p>
+<div id="carti-download" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Récupération du fond de carte (GEOJSON)</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cartiflette <span class="im">import</span> carti_download</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shp_communes <span class="op">=</span> carti_download(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  values <span class="op">=</span> [<span class="st">"31"</span>],</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  borders<span class="op">=</span><span class="st">"COMMUNE"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  filter_by<span class="op">=</span><span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  year<span class="op">=</span><span class="dv">2022</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>shp_communes.crs <span class="op">=</span> <span class="dv">4326</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cartiflette-map" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Code pour la carte interactive</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium.plugins <span class="im">import</span> MarkerCluster</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>department_border <span class="op">=</span> shp_communes.dissolve(by<span class="op">=</span><span class="st">"INSEE_DEP"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>city_borders <span class="op">=</span> shp_communes.copy()</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> bpe_enriched_geocoded.geometry.x.iloc[<span class="dv">0</span>]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>latitude <span class="op">=</span> bpe_enriched_geocoded.geometry.y.iloc[<span class="dv">0</span>]</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location<span class="op">=</span>[latitude, longitude], zoom_start<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add department border (black, bold)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>folium.GeoJson(</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>department_border,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    style_function<span class="op">=</span><span class="kw">lambda</span> x: {</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fill"</span>: <span class="va">False</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"color"</span>: <span class="st">"black"</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"weight"</span>: <span class="dv">3</span>  <span class="co"># Bold border</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>).add_to(m)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Add city borders (blue, thin)</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>folium.GeoJson(</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>city_borders,</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    style_function<span class="op">=</span><span class="kw">lambda</span> x: {</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"fill"</span>: <span class="va">False</span>,</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"color"</span>: <span class="st">"blue"</span>,</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"weight"</span>: <span class="dv">1</span>  <span class="co"># Thin border</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>).add_to(m)</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the MarkerCluster</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>marker_cluster <span class="op">=</span> MarkerCluster().add_to(m)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_popup(row):</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialiser le contenu avec le nom de l'école</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    popup_content <span class="op">=</span> <span class="ss">f"&lt;b&gt;Nom:&lt;/b&gt; </span><span class="sc">{</span>row[<span class="st">'NOMRS'</span>]<span class="sc">}</span><span class="ss">&lt;br&gt;"</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ajouter "Ecole élémentaire" avec une icône ✅️ ou ❌️ selon la valeur</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    ecole_element_status <span class="op">=</span> <span class="st">"✅️"</span> <span class="cf">if</span> row.get(<span class="st">'Ecole_elementaire'</span>, <span class="va">False</span>) <span class="cf">else</span> <span class="st">"❌️"</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>    popup_content <span class="op">+=</span> <span class="ss">f"&lt;b&gt;Ecole élémentaire:&lt;/b&gt; </span><span class="sc">{</span>ecole_element_status<span class="sc">}</span><span class="ss">&lt;br&gt;"</span></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ajouter "Nombre d'élèves" si disponible</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> pd.isnull(row.get(<span class="st">'Nombre_d_eleves'</span>)):</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>        popup_content <span class="op">+=</span> <span class="ss">f"&lt;b&gt;Nombre d'élèves :&lt;/b&gt; </span><span class="sc">{</span>row[<span class="st">'Nombre_d_eleves'</span>]<span class="sc">}</span><span class="ss">&lt;br&gt;"</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ajouter "Voie générale" si disponible</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> pd.isnull(row.get(<span class="st">'Voie_generale'</span>)):</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>        popup_content <span class="op">+=</span> <span class="ss">f"&lt;b&gt;Voie générale :&lt;/b&gt; </span><span class="sc">{</span>row[<span class="st">'Voie_generale'</span>]<span class="sc">}</span><span class="ss">&lt;br&gt;"</span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ajouter "Voie technologique" si disponible</span></span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> pd.isnull(row.get(<span class="st">'Voie_technologique'</span>)):</span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a>        popup_content <span class="op">+=</span> <span class="ss">f"&lt;b&gt;Voie technologique :&lt;/b&gt; </span><span class="sc">{</span>row[<span class="st">'Voie_technologique'</span>]<span class="sc">}</span><span class="ss">&lt;br&gt;"</span></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> popup_content</span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Add GeoDataFrame points to the MarkerCluster</span></span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> bpe_enriched_geocoded.iterrows():</span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the popup content</span></span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>    popup_content <span class="op">=</span> generate_popup(row)</span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>    popup <span class="op">=</span> folium.Popup(popup_content, max_width<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the marker to the cluster</span></span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>    folium.Marker(</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>        location<span class="op">=</span>[row.geometry.y, row.geometry.x],  <span class="co"># Extract latitude and longitude</span></span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>        popup<span class="op">=</span>popup,</span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>        icon<span class="op">=</span>folium.Icon(color<span class="op">=</span><span class="st">"blue"</span>, icon<span class="op">=</span><span class="st">"info-sign"</span>)</span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>    ).add_to(marker_cluster)</span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map inline (optional for Jupyter Notebooks)</span></span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="gestion-des-secrets-et-des-exceptions" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Gestion des secrets et des exceptions</h1>
+<p>Nous avons déjà utilisé plusieurs API. Néanmoins ces dernières étaient toutes sans authentification et présentent peu de restrictions, hormis le nombre d’échos. Ce n’est pas le cas de toutes les API. Il est fréquent que les API qui permettent d’aspirer plus de données ou d’accéder à des données confidentielles nécessitent une authentification pour tracer les utilisateurs de données.</p>
+<p>Cela se fait généralement en utilisant un <em>token</em>. Ce dernier est une sorte de mot de passe, souvent utilisé dans les systèmes modernes d’authentification pour certifier de l’identité d’un.e utilisateur.trice (cf.&nbsp;<a href="../content/git/introgit.qmd">chapitre <code>Git</code></a>).</p>
+<p>Avant d’en présenter l’usage, nous allons faire un rapide aparté sur la confidentialité des <em>tokens</em> et la manière d’éviter de révéler ceux-ci dans votre code.</p>
+<section id="bonnes-pratiques-pour-utiliser-un-token-dans-un-code-sans-le-révéler" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="bonnes-pratiques-pour-utiliser-un-token-dans-un-code-sans-le-révéler"><span class="header-section-number">5.1</span> Bonnes pratiques pour utiliser un token dans un code sans le révéler 👮</h2>
+<p>Les <em>tokens</em> sont des informations personnelles qui ne doivent pas être partagées. Ils n’ont donc pas vocation à apparaître dans le code.</p>
+<p>Comme ceci est évoqué à plusieurs reprises dans le cours de <a href="https://ensae-reproductibilite.github.io/website/">mise en production</a> en 3e année de l’ENSAE, il est important de séparer le code des éléments de configuration :</p>
+<p><img src="https://pythonds.linogaliana.fr/content/modern-ds/environment.png" class="img-fluid"></p>
+<p>L’idée est de trouver une recette pour apporter les éléments de configuration avec le code mais sans mettre ceux-ci en clair dans le code. L’idée générale sera de stocker la valeur du <em>token</em> dans une variable mais ne jamais révéler celle-ci dans le code. Comment faire dès lors pour déclarer la valeur du jeton sans que celui-ci soit apparent dans le code ?</p>
+<ul>
+<li>Pour un code amené à fonctionner de manière interactive (par exemple par le biais d’un <em>notebook</em>), il est possible de créer une boite de dialogue qui injectera la valeur renseignée dans une variable. Cela se fait par le biais du package <code>getpass</code>.</li>
+<li>Pour le code qui tourne en non interactif, par exemple par le biais de la ligne de commande, l’approche par variable d’environnement est la plus fiable, à condition de faire attention à ne pas mettre le fichier de mot de passe dans <code>Git</code> <i class="fa-brands fa-git-alt" aria-label="git-alt"></i>. Pour cela, le plus simple est d’utiliser <a href="https://pypi.org/project/python-dotenv/"><code>dotenv</code></a> si vous faites tourner votre code ou des <a href="https://docs.github.com/fr/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions">secrets</a> si votre code tourne par le biais de l’intégration continue<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Il ne faut jamais mettre de <em>token</em> dans <code>Git</code>. Sinon, vous courrez le risque d’avoir votre identité usurpée : des robots scannent en continu <code>Github</code> à la recherche de jetons pour ensuite lancer des dénis de service en se faisant passer pour vous.</p>
+<p>Si vous avez partagé par erreur un jeton : pas de panique, cela peut arriver ! L’avantage des jetons est qu’ils sont révocables : vous pouvez l’invalider et en créer un nouveau pour continuer à utiliser le service désiré. La bonne réaction consiste à révoquer le jeton le plus vite possible, une fois la fuite constatée. La meilleure parade pour éviter ce type de fuite est d’ajouter tout de suite le <code>.env</code> au <code>.gitignore</code>.</p>
+</div>
+</div>
+</div>
+<p>L’exercice 5 permettra de mettre en oeuvre ces deux méthodes. Ces méthodes nous serviront à ajouter de manière confidentielle un <em>payload</em> à des requêtes d’authentification, c’est-à-dire des informations confidentielles identifiantes en complément d’une requête.</p>
+</section>
+<section id="le-portail-des-api-de-linsee" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="le-portail-des-api-de-linsee"><span class="header-section-number">5.2</span> Le portail des API de l’Insee</h2>
+<p>Pour illustrer l’utilisation des API authentifiées, nous proposons d’explorer le <a href="https://api.insee.fr/catalogue/">portail des API</a> de l’Insee.</p>
+<p>Nous allons nous concentrer sur l’API Sirene mais, sur ce portail, il en existe d’autres, notamment l’API Melodi consacrée à la récupération d’un certain nombre de sources <em>open data</em> de l’Insee. L’API Sirene est une version interrogeable des données <a href="https://www.insee.fr/fr/information/3591226">Sirene <em>open data</em></a>.</p>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 4 : API authentifiée par le biais du navigateur
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Se créer un compte sur le <a href="https://api.insee.fr/catalogue/">portail des API</a></li>
+<li>Aller voir l’espace <code>Mes applications</code> et en créer une nouvelle. Par simplicité, vous pouvez la nommer <em>“Atelier SSPHub”</em>.</li>
+<li>Dans celle-ci, aller dans l’onglet <em>“Clefs et jetons”</em>.Créer un jeton (vous pouvez laisser la durée de validité proposée).</li>
+<li>Cliquer sur l’onglet <em>Souscriptions</em>. Choisir l’API Sirene.</li>
+<li>A droite, sélectionner l’application créée précédemment. Si vous allez voir votre application, elle devrait maintenant pouvoir interagir avec l’API Sirene.</li>
+</ol>
+<p>Testons maintenant l’API Sirene grâce au <em>swagger</em> (onglet <code>Console de l'API</code>) :</p>
+<ol start="6" type="1">
+<li>Plus bas, dans la documentation interactive se rendre au point d’entrée <code>/siren/{siren}</code> (méthode <code>GET</code>).</li>
+<li>Remplir le champ <code>q</code> avec le SIREN <code>500569405</code> (SIREN de Décathlon 😉)</li>
+<li>Si vous avez l’erreur ci-dessous, comprenez-vous pourquoi ?</li>
+</ol>
+<ol type="1">
+<li>Changer l’application via le menu déroulant : maintenant que vous avez un <em>token</em> valide, soumettez à nouveau la même requête.</li>
+</ol>
+<p>Vous devriez maintenant avoir cette sortie :</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb30" data-startfrom="830" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 829;"><span id="cb30-830"><a href="#cb30-830" aria-hidden="true" tabindex="-1"></a>sortie_sirene_decathlon</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="récupération-des-données-via-python" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="récupération-des-données-via-python"><span class="header-section-number">5.3</span> Récupération des données via <code>Python</code> <i class="fa-brands fa-python" aria-label="python"></i></h2>
+<p>Pour la prochaine application, à partir de la question 4, nous allons avoir besoin de créer une classe spéciale permettant à <code>requests</code> de surcharger notre requête d’un jeton d’authentification. Comme elle n’est pas triviale à créer sans connaissance préalable, la voici :</p>
+<div id="bearer-token" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BearerAuth(requests.auth.AuthBase):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, token):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.token <span class="op">=</span> token</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, r):</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        r.headers[<span class="st">"authorization"</span>] <span class="op">=</span> <span class="st">"Bearer "</span> <span class="op">+</span> <span class="va">self</span>.token</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> r</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 5 : les tokens avec <code>Python</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Créer une variable <code>token</code> par le biais de <code>getpass</code>.</li>
+<li>Utiliser cette structure de code pour récupérer la donnée voulue</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>requests.get(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    url,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    auth<span class="op">=</span>BearerAuth(token)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Remplacer l’utilisation de <code>getpass</code> par l’approche variable d’environnement grâce à <a href="https://pypi.org/project/python-dotenv/"><code>dotenv</code></a>.</li>
+</ol>
+</div>
+</div>
+<div id="premier-appel-authent" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>Correction de l’exercice</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>siren<span class="op">=</span><span class="st">"500569405"</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>token <span class="op">=</span> os.getenv(<span class="st">"TOKEN_API_INSEE"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> token <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Token has been retrieved from env var"</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"https://api.insee.fr/entreprises/sirene/V3.11/siren/</span><span class="sc">{</span>siren<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    auth<span class="op">=</span>BearerAuth(token)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>sortie_sirene_decathlon <span class="op">=</span> r.json()</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>sortie_sirene_decathlon</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb34" data-startfrom="902" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 901;"><span id="cb34-902"><a href="#cb34-902" aria-hidden="true" tabindex="-1"></a>sortie_sirene_decathlon</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Nous avons un <em>dataframe</em> avec de nombreux <em>SIRET</em> (<code>bpe</code>). On pourrait vouloir récupérer des infos sur ceux-ci par le biais de l’API. Néanmoins les conditions d’usage de celle-ci sont restrictives : pas plus de 30 appels par minute.</p>
+<p>On ne peut donc faire une boucle sur notre <em>dataframe</em> sans contrôler le nombre d’appels à la minute. Idéalement, nous ferions de l’envoi par <em>bash</em> qui permet d’envoyer plusieurs enregistrement à la fois dans une seule requête (comme nous avons fait pour les géolocalisations) mais ce n’est pas possible : l’API Sirene est une API pour de la consultation de données ponctuelles, pas du traitement statistique sur de gros volumes.</p>
+<p>L’autre approche possible, que nous allons adopter, est de mettre un temps d’attente entre chaque appel à l’API. Nous allons donc faire une boucle mais, entre chaque itération, mettre un temps de repos de 2 secondes.</p>
+<div id="677b121a" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>Fonction utile pour cet exercice</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>siret <span class="op">=</span> <span class="st">"21310001900024"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_ape(siret: <span class="bu">str</span> <span class="op">=</span> <span class="st">"21310001900024"</span>, token: <span class="bu">str</span> <span class="op">=</span> <span class="st">""</span>):</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    info_siret <span class="op">=</span> requests.get(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"https://api.insee.fr/entreprises/sirene/V3.11/siret/</span><span class="sc">{</span>siret<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        auth<span class="op">=</span>BearerAuth(token)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    ape <span class="op">=</span> (info_siret</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        .get(<span class="st">"etablissement"</span>, {})</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        .get(<span class="st">"uniteLegale"</span>, {})</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        .get(<span class="st">"activitePrincipaleUniteLegale"</span>, {})</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ape</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>get_ape(siret, token)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-exercise callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercice 6 : généraliser des appels à des API
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nous voulons récupérer l’activité pricnipal de nos établissements (le code APE, qui devrait normalement être <code>84.11Z</code>).</p>
+<p>Utiliser le <em>package</em> <code>time</code> et sa fonction <code>sleep</code> pour marquer un temps d’arrêt lorsqu’on itére sur les <em>dix premières observations</em> de notre <em>dataframe</em> pour récupérer ce code.</p>
+</div>
+</div>
+<div id="3fcaa205" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>Correction de l’exercice</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>first_siret <span class="op">=</span> []</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> bpe.head(<span class="dv">10</span>).iterrows():</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    first_siret <span class="op">+=</span> [get_ape(row[<span class="st">'SIRET'</span>], token)]</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">2</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conclusion</h1>
+<p>Les API sont pratiques pour récupérer des données ponctuelles, en particulier lorsque le consommateur de données n’a pas besoin d’accéder à la donnée brute mais plutôt à une version déjà transformée, filtrée ou mise à jour dynamiquement. Elles s’intègrent bien dans des applications interactives ou des scripts automatisés et permettent de déléguer la gestion des mises à jour et de la volumétrie au fournisseur de données.</p>
+<p>Cependant, leur utilisation présente plusieurs inconvénients :</p>
+<ul>
+<li><p>elles nécessitent souvent un code très spécifique à chaque source et à chaque langage, ce qui nuit à la portabilité (à l’inverse de solutions plus universelles comme SQL, dont nous parlerons dans la <em>masterclass</em> <code>Parquet</code>) ;</p></li>
+<li><p>elles posent parfois des limites en termes de volumétrie ou de stabilité d’accès (API désactivées ou restructurées sans préavis), ce qui les rend moins adaptées pour un usage massif ou reproductible à long terme.</p></li>
+</ul>
+<p>Les API sont donc surtout intéressantes pour récupérer des données ponctuelles ou embarquées dans une application, mais restent à manier avec prudence dans un contexte d’exploitation de données à grande échelle ou de production statistique robuste.</p>
+<!----------
+API interactive example
+---------->
+<div class="cell hidden">
+<div class="sourceCode cell-code hidden" id="cb37" data-startfrom="985" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 984;"><span id="cb37-985"><a href="#cb37-985" aria-hidden="true" tabindex="-1"></a>adresse_debounce <span class="op">=</span> <span class="fu">debounce</span>(viewof adresse<span class="op">,</span> <span class="dv">3000</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb38" data-startfrom="990" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 989;"><span id="cb38-990"><a href="#cb38-990" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {debounce} <span class="im">from</span> <span class="st">"@mbostock/debouncing-input"</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb39" data-startfrom="998" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 997;"><span id="cb39-998"><a href="#cb39-998" aria-hidden="true" tabindex="-1"></a>apiroot <span class="op">=</span> <span class="st">"https://api-adresse.data.gouv.fr"</span></span>
+<span id="cb39-999"><a href="#cb39-999" aria-hidden="true" tabindex="-1"></a>param1 <span class="op">=</span> {</span>
+<span id="cb39-1000"><a href="#cb39-1000" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> AdresseFormat <span class="op">=</span> adresse_debounce<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="op">.</span><span class="fu">replaceAll</span>(<span class="st">" "</span><span class="op">,</span> <span class="st">"+"</span>)</span>
+<span id="cb39-1001"><a href="#cb39-1001" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> url <span class="op">=</span> <span class="vs">`q=</span><span class="sc">${</span>AdresseFormat<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb39-1002"><a href="#cb39-1002" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> url</span>
+<span id="cb39-1003"><a href="#cb39-1003" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-1004"><a href="#cb39-1004" aria-hidden="true" tabindex="-1"></a>param2 <span class="op">=</span> <span class="vs">`postcode=</span><span class="sc">${</span>codePostal<span class="sc">}</span><span class="vs">`</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-13-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-13-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-13-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb40" data-startfrom="1009" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1008;"><span id="cb40-1009"><a href="#cb40-1009" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {mj} <span class="im">from</span> <span class="st">"@danielefadda/mathjax"</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb41" data-startfrom="1015" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1014;"><span id="cb41-1015"><a href="#cb41-1015" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> {</span>
+<span id="cb41-1016"><a href="#cb41-1016" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> AdresseFormat <span class="op">=</span> adresse_debounce<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="op">.</span><span class="fu">replaceAll</span>(<span class="st">" "</span><span class="op">,</span> <span class="st">"+"</span>)</span>
+<span id="cb41-1017"><a href="#cb41-1017" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> url <span class="op">=</span> <span class="vs">`https://api-adresse.data.gouv.fr/search/?q=</span><span class="sc">${</span>AdresseFormat<span class="sc">}</span><span class="vs">&amp;postcode=</span><span class="sc">${</span>codePostal<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb41-1018"><a href="#cb41-1018" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> url</span>
+<span id="cb41-1019"><a href="#cb41-1019" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb42" data-startfrom="1024" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1023;"><span id="cb42-1024"><a href="#cb42-1024" aria-hidden="true" tabindex="-1"></a>localisation <span class="op">=</span> d3<span class="op">.</span><span class="fu">json</span>(url)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb43" data-startfrom="1030" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1029;"><span id="cb43-1030"><a href="#cb43-1030" aria-hidden="true" tabindex="-1"></a>defaultAdresse <span class="op">=</span> <span class="st">"88 Avenue Verdier"</span></span>
+<span id="cb43-1031"><a href="#cb43-1031" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> localisation<span class="op">.</span><span class="at">features</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">geometry</span><span class="op">.</span><span class="at">coordinates</span>[<span class="dv">0</span>]</span>
+<span id="cb43-1032"><a href="#cb43-1032" aria-hidden="true" tabindex="-1"></a>latitude <span class="op">=</span> localisation<span class="op">.</span><span class="at">features</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">geometry</span><span class="op">.</span><span class="at">coordinates</span>[<span class="dv">1</span>]</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-17-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-17-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-17-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb44" data-startfrom="1039" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1038;"><span id="cb44-1039"><a href="#cb44-1039" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {L} <span class="im">from</span> <span class="st">"@observablehq/hello-leaflet"</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-18" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+
+
 </section>
 
 
@@ -243,10 +1209,11 @@ Illustration avec l’API BAN
 
 <ol>
 <li id="fn1"><p>Technique consistant à singer le comportement d’un navigateur web et de récupérer de l’information en moissonnant le HTML auquel accède un site web<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>C’est par exemple l’approche adoptée pour construire ces supports. Cela se fait de <a href="XXXX">cette manière</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBjb2RlUG9zdGFsID0gSW5wdXRzLnRleHQoe3ZhbHVlOiBcIjkyMTIwXCIsIHBsYWNlaG9sZGVyOiBcIjkyMTIwXCIsIGxhYmVsOiBtZGAqKkNvZGUgUG9zdGFsKipgfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBhZHJlc3NlID0gSW5wdXRzLnRleHQoe3ZhbHVlOiBkZWZhdWx0QWRyZXNzZSwgcGxhY2Vob2xkZXI6IGRlZmF1bHRBZHJlc3NlLCBsYWJlbDogbWRgKipBZHJlc3NlKipgfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1kYFxuJHtcbmF3YWl0IG1qYCQkXFx1bmRlcmJyYWNle1xcdGV4dHske2FwaXJvb3R9fX1fe1xcdGV4dHtBUEkgcm9vdH19L1xcdW5kZXJicmFjZXtcXHRleHR7c2VhcmNofX1fe1xcdGV4dHtBUEkgZW5kcG9pbnR9fS8/XFx1bmRlcmJyYWNle1xcdGV4dHske3BhcmFtMX19fV97XFx0ZXh0e21haW4gcGFyYW1ldGVyfX1cXCZcXHVuZGVyYnJhY2V7XFx0ZXh0eyR7cGFyYW0yfX19X3tcXHRleHR7YWRkaXRpb25hbCBwYXJhbWV0ZXJ9fSQkYFxufVxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibWFwID0ge1xuICBjb25zdCBjb250YWluZXIgPSBodG1sYDxkaXYgc3R5bGU9XCJoZWlnaHQ6MzAwcHg7XCI+YDtcbiAgeWllbGQgY29udGFpbmVyO1xuICBjb25zdCBtYXAgPSBMLm1hcChjb250YWluZXIpLnNldFZpZXcoW2xhdGl0dWRlLCBsb25naXR1ZGVdLCAxMyk7XG4gIEwudGlsZUxheWVyKFwiaHR0cHM6Ly97c30udGlsZS5vcGVuc3RyZWV0bWFwLm9yZy97en0ve3h9L3t5fS5wbmdcIiwge1xuICAgIGF0dHJpYnV0aW9uOiBcIiZjb3B5OyA8YSBocmVmPWh0dHBzOi8vd3d3Lm9wZW5zdHJlZXRtYXAub3JnL2NvcHlyaWdodD5PcGVuU3RyZWV0TWFwPC9hPiBjb250cmlidXRvcnNcIlxuICB9KS5hZGRUbyhtYXApO1xuICB2YXIgbWFya2VyID0gTC5tYXJrZXIoW2xhdGl0dWRlLCBsb25naXR1ZGVdKS5hZGRUbyhtYXApO1xuICBtYXJrZXIuYmluZFBvcHVwKFwiPGI+VHJvdXbDqSAhPC9iPlwiKS5vcGVuUG9wdXAoKTtcbiAgcmV0dXJuIG1hcFxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiaHRtbGBcbiBQb3VyIHByZXV2ZSBxdWUgY2V0dGUgcmVxdcOqdGUgZXN0IGJpZW4gZm9uY3Rpb25uZWxsZSwgb24gcGV1dCBsJ291dnJpciBkYW5zIHVuIG5hdmlnYXRldXIgOiA8YSBocmVmPVwiJHt1cmx9XCIgdGFyZ2V0PVwiX2JsYW5rXCIgdGl0bGU9XCJUZXN0IGRlIHVybCBkYW5zIHVuIG5hdmlnYXRldXJcIj5cbiA8aSBjbGFzcz1cImZhLXNvbGlkIGZhLW1hZ25pZnlpbmctZ2xhc3NcIj48L2k+PC9pPlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibG9jYWxpc2F0aW9uX2luc2VlXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJsb2NhbGlzYXRpb25faW5zZWUyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJlcnJvcl9yZXF1ZXN0X25vX3Rva2VuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTkiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJzb3J0aWVfc2lyZW5lX2RlY2F0aGxvblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InNvcnRpZV9zaXJlbmVfZGVjYXRobG9uXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiYWRyZXNzZV9kZWJvdW5jZSA9IGRlYm91bmNlKHZpZXdvZiBhZHJlc3NlLCAzMDAwKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7ZGVib3VuY2V9IGZyb20gXCJAbWJvc3RvY2svZGVib3VuY2luZy1pbnB1dFwiXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEzIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiYXBpcm9vdCA9IFwiaHR0cHM6Ly9hcGktYWRyZXNzZS5kYXRhLmdvdXYuZnJcIlxucGFyYW0xID0ge1xuICBjb25zdCBBZHJlc3NlRm9ybWF0ID0gYWRyZXNzZV9kZWJvdW5jZS50b0xvd2VyQ2FzZSgpLnJlcGxhY2VBbGwoXCIgXCIsIFwiK1wiKVxuICBjb25zdCB1cmwgPSBgcT0ke0FkcmVzc2VGb3JtYXR9YFxuICByZXR1cm4gdXJsXG59XG5wYXJhbTIgPSBgcG9zdGNvZGU9JHtjb2RlUG9zdGFsfWBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJpbXBvcnQge21qfSBmcm9tIFwiQGRhbmllbGVmYWRkYS9tYXRoamF4XCJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ1cmwgPSB7XG4gIGNvbnN0IEFkcmVzc2VGb3JtYXQgPSBhZHJlc3NlX2RlYm91bmNlLnRvTG93ZXJDYXNlKCkucmVwbGFjZUFsbChcIiBcIiwgXCIrXCIpXG4gIGNvbnN0IHVybCA9IGBodHRwczovL2FwaS1hZHJlc3NlLmRhdGEuZ291di5mci9zZWFyY2gvP3E9JHtBZHJlc3NlRm9ybWF0fSZwb3N0Y29kZT0ke2NvZGVQb3N0YWx9YFxuICByZXR1cm4gdXJsXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE2IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibG9jYWxpc2F0aW9uID0gZDMuanNvbih1cmwpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE3IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZGVmYXVsdEFkcmVzc2UgPSBcIjg4IEF2ZW51ZSBWZXJkaWVyXCJcbmxvbmdpdHVkZSA9IGxvY2FsaXNhdGlvbi5mZWF0dXJlc1swXS5nZW9tZXRyeS5jb29yZGluYXRlc1swXVxubGF0aXR1ZGUgPSBsb2NhbGlzYXRpb24uZmVhdHVyZXNbMF0uZ2VvbWV0cnkuY29vcmRpbmF0ZXNbMV1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJpbXBvcnQge0x9IGZyb20gXCJAb2JzZXJ2YWJsZWhxL2hlbGxvLWxlYWZsZXRcIlxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjb2RlUG9zdGFsJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2FkcmVzc2UnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY29kZVBvc3RhbCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhZHJlc3NlJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -255,9 +1222,6 @@ window._ojs.paths.runtimeToRoot = "../..";
 window._ojs.paths.docToRoot = "..";
 window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
-</script>
-<script type="application/vnd.jupyter.widget-state+json">
-{"state":{"82cf3f1ef44f479e99f5c9fe4c0f8414":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_bf85889535324e7bb9b1cfa4f2ff436a","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_98700697eded4353bbd184888c1a7b21","tabbable":null,"tooltip":null,"value":100}},"98700697eded4353bbd184888c1a7b21":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}},"bf85889535324e7bb9b1cfa4f2ff436a":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}}},"version_major":2,"version_minor":0}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
