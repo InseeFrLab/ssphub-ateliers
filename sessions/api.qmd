@@ -29,7 +29,7 @@ Vous êtes certainement habitué à récupérer vos données depuis des fichiers
 
 Heureusement, il existe d'autres manières d'accéder à des données : les API de données. En informatique, une API est un __ensemble de protocoles permettant à deux logiciels de communiquer entre eux__. Par exemple, on parle parfois d'API Pandas ce qui désigne le fait que `Pandas` est une interface entre votre code `Python` et un langage compilé plus efficace (`C`) qui fait les calculs que vous demandez au niveau de `Python`. L’objectif d’une API est ainsi de fournir un point d’accès à une fonctionnalité qui soit facile à utiliser et qui masque les détails de la mise en oeuvre.
 
-Dans ce chapitre, nous nous intéressons principalement aux API de données. Ces dernières sont simplement une façon de mettre à disposition des données : plutôt que de laisser l’utilisateur consulter directement des bases de données (souvent volumineuses et complexes), l’API lui propose de formuler une requête qui est traitée par le serveur hébergeant la base de données, puis de recevoir des données en réponse à sa requête.
+Dans cet atelier, nous nous intéressons principalement aux API de données. Ces dernières sont simplement une façon de mettre à disposition des données : plutôt que de laisser l’utilisateur consulter directement des bases de données (souvent volumineuses et complexes), l’API lui propose de formuler une requête qui est traitée par le serveur hébergeant la base de données, puis de recevoir des données en réponse à sa requête.
 
 L'utilisation accrue d'API dans le cadre de stratégies open-data est l'un
 des piliers des 15 feuilles de route ministérielles françaises
@@ -38,15 +38,15 @@ en matière d’ouverture, de circulation et de valorisation des données publiq
 :::: {.tip collapse="false"}
 ## Illustration avec l'API BAN
 
-Imaginons ce qu'il se passe lorsqu'on requête l'API BAN, en prenant la métaphore d'un restaurant :
+Imaginons ce qui se passe lorsqu'on requête l'API BAN (Base d'Adresses Nationale), en prenant la métaphore d'un restaurant :
 
-* 💬 Via `Python` {{< fa brands python >}}, on envoie notre commande à celle-ci : des adresses plus ou moins complètes avec des instructions annexes comme le code commune. Ces instructions annexes peuvent s'apparenter à des informations fournies au serveur du restaurant comme des interdits alimentaires qui vont personnaliser la recette.
+* 💬 Via `Python` {{< fa brands python >}}, on passe une commande à l'API: des adresses plus ou moins complètes avec des instructions annexes comme le code commune. Ces instructions annexes peuvent s'apparenter à des informations fournies au serveur du restaurant comme des interdits alimentaires qui vont personnaliser la recette.
 
-* 🧑‍🍳 A partir de ces instructions, le plat est lancé. En l'occurrence, il s'agit de faire tourner sur les serveurs d'Etalab une routine qui va chercher dans un référentiel d'adresse celle qui est la plus similaire à celle qu'on a demandé en adaptant éventuellement en fonction des instructions annexes qu'on a fournies.
+* 🧑‍🍳 A partir de ces instructions, la confection du plat est lancée. En l'occurrence, il s'agit de faire tourner sur les serveurs d'Etalab une routine qui va chercher dans un référentiel d'adresses celle qui est la plus similaire à celle qu'on a demandée en adaptant éventuellement en fonction des instructions annexes qu'on a fournies.
 
-* 🍕 Une fois que côté cuisine on a fini cette préparation, on renvoie le plat au client. En l'occurrence, le plat sera des coordonnées géographiques qui correspondent à l'adresse la plus similaire.
+* 🍕 Une fois que la cuisine a fini la préparation du plat, on le renvoie au client. En l'occurrence, le plat sera constitué des coordonnées géographiques qui correspondent à l'adresse la plus similaire.
 
-Le client n'a donc qu'à se préoccuper de faire une bonne requête et d'apprécier le plat qui lui est fourni. L'intelligence dans la mise en oeuvre est laissée aux spécialistes qui ont conçu l'API. Peut-être que d'autres spécialistes, par exemple _Google Maps_, mettent en oeuvre une recette différente pour ce même plat (des coordonnées géographiques) mais ils vous proposeront probablement un menu très similaire. Ceci vous simplifie beaucoup la vie : il vous suffit de changer quelques lignes de code d'appel à une API plutôt que de modifier un ensemble long et complexe de méthodes d'identification d'adresses.
+Le client n'a donc qu'à se préoccuper de faire une bonne requête et d'apprécier le plat qui lui est fourni. L'intelligence dans la mise en oeuvre est laissée aux spécialistes qui ont conçu l'API. Peut-être que d'autres spécialistes, par exemple _Google Maps_, mettent en oeuvre une recette différente pour ce même plat (des coordonnées géographiques) mais ils vous proposeront probablement un résultat très similaire. Ce mode de fonctionnement vous simplifie beaucoup la vie : pour changer de restaurant, il vous suffit généralement de changer quelques lignes de code d'appel à une API plutôt que de modifier un ensemble long et complexe de méthodes d'identification d'adresses.
 
 ::::
 
