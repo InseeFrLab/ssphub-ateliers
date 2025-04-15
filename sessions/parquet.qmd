@@ -111,8 +111,9 @@ Pour cela, nous utilisons la fonction SQL `EXPLAIN ANALYZE` disponible dans `duc
 
 Ceci nécessite l'utilisation de l'extension `httpfs` (un peu l'équivalent des `library` de `R` en `duckdb`). Elle s'installe et s'utilise de la manière suivante
 
-```{.r}
+```{r}
 #| output: false
+con <- dbConnect(duckdb::duckdb())
 dbExecute(
   con,
   glue(
@@ -208,9 +209,9 @@ L'import des contours dont nous aurons besoin en {{< fa brands r-project >}} se 
 
 
 ```{r}
-triangle <- sf::st_read("data/triangle.geojson", quiet=TRUE)
-malakoff <- sf::st_read("data/malakoff.geojson", quiet=TRUE)
-montrouge <- sf::st_read("data/montrouge.geojson", quiet=TRUE)
+triangle <- sf::st_read("https://minio.lab.sspcloud.fr/projet-formation/nouvelles-sources/data/triangle.geojson", quiet=TRUE)
+malakoff <- sf::st_read("https://minio.lab.sspcloud.fr/projet-formation/nouvelles-sources/data/malakoff.geojson", quiet=TRUE)
+montrouge <- sf::st_read("https://minio.lab.sspcloud.fr/projet-formation/nouvelles-sources/data/montrouge.geojson", quiet=TRUE)
 ```
 
 En premier lieu, on peut visualiser la ville de `Malakoff` :
@@ -239,6 +240,8 @@ La base de données se crée tout simplement de la manière suivante :
 con <- dbConnect(duckdb::duckdb())
 dbExecute(con, "INSTALL spatial;")
 dbExecute(con, "LOAD spatial;")
+dbExecute(con, "INSTALL httpfs;")
+dbExecute(con, "LOAD httpfs;")
 ```
 
 Comme il n'est pas possible de distinguer cette zone par requêtes attributaires, nous proposons de :
@@ -293,7 +296,7 @@ Ci-dessous le dataframe brut extrait via Duckdb (réponse 1).
 ```{r}
 #| echo: true
 query2 <- glue("
-    FROM read_parquet('data/dvf.parquet')
+    FROM read_parquet('https://minio.lab.sspcloud.fr/projet-formation/nouvelles-sources/data/geoparquet/dvf.parquet')
     SELECT
         code_commune,
         valeur_fonciere,
